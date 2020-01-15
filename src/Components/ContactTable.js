@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -7,6 +7,7 @@ import DataTransformer from '../utils/dataTransformer';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy'
 import Contacts from './Contacts'
+import UserContext from './UserContext'
 
 const useStyles = makeStyles({
   table: {
@@ -38,17 +39,19 @@ function listData(data, length) {
 }
 
 export default function ContactTable() {
-  const [users, setUsers] = useState({})
+  const { fillUsers, state } = useContext(UserContext);
 
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/users')
-      .then(res => setUsers(listData(res.data, 5)))
+      .then(res => {
+        fillUsers(listData(res.data, 5));
+      })
       .catch(err => console.error)
-  }, [])
+  }, [fillUsers])
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
-      {users && isEmpty(users) ? <p>LOADING...</p> : <Contacts data={users} classes={classes} />}
+      {state && isEmpty(state) ? <p>LOADING...</p> : <Contacts data={state} classes={classes} />}
     </TableContainer>
   );
 }
