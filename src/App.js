@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from '@material-ui/core/Button'
-import NavBar from './Components/Navbar'
-import ContactTable from './Components/ContactTable'
+import NavBar from './Components/Navbar';
+import CreateContact from './Components/CreateContact';
+import ContactTable from './Components/ContactTable';
 
 
 function App() {
@@ -9,9 +9,7 @@ function App() {
     <div className="App">
       <NavBar />
       <h1>Contacts</h1>
-      <Button variant="contained" color="primary">
-        Hello World
-      </Button>
+      <CreateContact />
       <ContactTable />
     </div>
   );
