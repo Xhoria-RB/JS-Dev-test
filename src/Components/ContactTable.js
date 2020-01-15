@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import DataTransformer from '../utils/dataTransformer';
 import isEmpty from 'lodash/isEmpty';
+import Contacts from './Contacts'
 
 const useStyles = makeStyles({
   table: {
@@ -262,43 +258,22 @@ function listData(data, length) {
     } else {
       if (!arrData.find(el => el.id === randomNum)) {
         arrData.push(transformedData.find(el => el.id === randomNum));
-
       }
     }
     if (arrData.length === length) {
       break;
     }
   }
+  console.log(arrData)
   return arrData;
 }
 
-export default function SimpleTable() {
+export default function ContactTable() {
   const classes = useStyles();
-  const rows = listData(mockData, 7)
-
-
+  const data = listData(mockData, 5)
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Phone number</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell align="right">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.email}</TableCell>
-              <TableCell align="right">{row.phone}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      {data && isEmpty(data) ? 'loading' : <Contacts data={data} classes={classes} />}
     </TableContainer>
   );
 }
