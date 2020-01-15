@@ -74,7 +74,7 @@ export default function CreateContact() {
           <p id="simple-modal-description">
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </p>
-          <form className={classes.root} noValidate autoComplete="off">
+          <form className={classes.root} autoComplete="off">
             <div>
               <TextField
                 required

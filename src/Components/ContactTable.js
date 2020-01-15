@@ -39,21 +39,19 @@ function listData(data, length) {
 }
 
 export default function ContactTable() {
-  const { fillUsers } = useContext(UserContext);
-  const [users, setUsers] = useState({})
+  const { fillUsers, state } = useContext(UserContext);
 
   useEffect(() => {
     axios.get('https://jsonplaceholder.typicode.com/users')
       .then(res => {
         fillUsers(listData(res.data, 5));
-        setUsers(listData(res.data, 5))
       })
       .catch(err => console.error)
   }, [fillUsers])
   const classes = useStyles();
   return (
     <TableContainer component={Paper}>
-      {users && isEmpty(users) ? <p>LOADING...</p> : <Contacts data={users} classes={classes} />}
+      {state && isEmpty(state) ? <p>LOADING...</p> : <Contacts data={state} classes={classes} />}
     </TableContainer>
   );
 }
