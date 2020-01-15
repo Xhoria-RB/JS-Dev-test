@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import TableContainer from '@material-ui/core/TableContainer';
-import Paper from '@material-ui/core/Paper';
 import DataTransformer from '../utils/dataTransformer';
 import isEmpty from 'lodash/isEmpty';
 import sortBy from 'lodash/sortBy'
@@ -11,7 +10,7 @@ import UserContext from './UserContext'
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 650
   },
 });
 
@@ -34,7 +33,6 @@ function listData(data, length) {
       break;
     }
   }
-  // console.log()
   return sortBy(arrData, ['id']);
 }
 
@@ -50,7 +48,7 @@ export default function ContactTable() {
   }, [fillUsers])
   const classes = useStyles();
   return (
-    <TableContainer component={Paper}>
+    <TableContainer style={{ margin: '16px', padding: '10px' }}>
       {state && isEmpty(state) ? <p>LOADING...</p> : <Contacts data={state} classes={classes} />}
     </TableContainer>
   );

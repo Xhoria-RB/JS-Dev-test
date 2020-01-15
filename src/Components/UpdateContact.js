@@ -2,11 +2,10 @@ import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
-import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 import UserContext from './UserContext';
-import isEmpty from 'lodash/isEmpty'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -39,12 +38,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CreateContact() {
+export default function UpdateContact({ id, btnClass }) {
   const classes = useStyles();
-  const { addContact, state } = useContext(UserContext)
+  const { updateContact } = useContext(UserContext)
   const [user, setUser] = useState({})
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = useState(false)
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -53,35 +53,21 @@ export default function CreateContact() {
     setOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
-    if (isEmpty(user)) {
-      alert('Please fill out the fields')
-    } else {
-      if (user.name === "" || isEmpty(user.name)) {
-        alert('The name cannot be empty')
-      } else {
-        if (user.email === "" || isEmpty(user.email)) {
-          alert('The email cannot be empty')
-        } else {
-          if (user.phone === "" || isEmpty(user.phone)) {
-            alert('The phone cannot be empty')
-          } else {
-            addContact({ ...user, id: state[state.length - 1].id + 1 });
-            setUser(null)
-            setOpen(false);
-            return;
-          }
-        }
-      }
+    updateContact(id, user);
 
-    }
   }
 
   return (
-    <div style={{ margin: '10px' }}>
-      <Button variant="contained" color="primary" aria-label="add" startIcon={<AddIcon />} onClick={handleOpen}>
-        Create contact
+    <div>
+      <Button
+        variant="contained"
+        color="default"
+        aria-label="edit"
+        className={btnClass.button}
+        startIcon={<EditIcon />} onClick={handleOpen}>
+        Edit
       </Button>
       <Modal
         aria-labelledby="create-contact"
@@ -119,7 +105,12 @@ export default function CreateContact() {
                 onChange={(e) => setUser({ ...user, [e.target.name]: e.target.value })} />
             </div>
             <div>
-              <Button variant="contained" color="primary" aria-label="add" startIcon={<SaveIcon />} onClick={handleSubmit}>
+              <Button
+                variant="contained"
+                color="primary"
+                aria-label="add"
+                startIcon={<SaveIcon />}
+                onClick={handleUpdate}>
                 Save
               </Button>
             </div>
