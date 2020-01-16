@@ -76,9 +76,9 @@ export default function UpdateContact({ id, btnClass }) {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2 id="simple-modal-title">Text in a modal</h2>
+          <h2 id="simple-modal-title">Update Contact</h2>
           <p id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            To update please fill one or all the fields with the new information.
           </p>
           <form className={classes.root} autoComplete="off">
             <div>

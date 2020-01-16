@@ -90,9 +90,9 @@ export default function CreateContact() {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2 id="simple-modal-title">Text in a modal</h2>
+          <h2 id="simple-modal-title">Create Contact</h2>
           <p id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            To create a new contact please fill the following field with name, email and phone number respectively.
           </p>
           <form className={classes.root} autoComplete="off">
             <div>
